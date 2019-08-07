@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(571, 405);
+            this.ClientSize = new System.Drawing.Size(584, 361);
             this.Name = "Form1";
             this.Text = "Pong";
             this.ResumeLayout(false);

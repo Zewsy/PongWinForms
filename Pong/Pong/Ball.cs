@@ -8,7 +8,13 @@ namespace Pong
 {
     class Ball
     {
-        public int x;
-        public int y;
+        public int x { get; set; }
+        public int y { get; set; }
+
+        public Ball(int _x, int _y)
+        {
+            x = _x;
+            y = _y;
+        }
     }
 }

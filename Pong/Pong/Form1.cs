@@ -18,6 +18,7 @@ namespace Pong
         const int START_X = 20;
         const int MOVEMENT = 10;
         bool ballIsGoingToLeft = true;
+        bool endOfGame = false;
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +37,17 @@ namespace Pong
             if (ballIsGoingToLeft)
             {
                 if (ball.x <= racket1.x + racket1.width * 2)
-                    ballIsGoingToLeft = false;
+                {
+                    if (ball.y <= racket1.y - racket1.height || ball.y >= racket1.y + racket1.height)
+                    {
+                        //TO DO
+                        endOfGame = true;
+                        timer.Stop();
+                        MessageBox.Show("END :(");
+                    }
+                    else
+                        ballIsGoingToLeft = false;
+                }          
                 ball.x -= 5;
             }
             else

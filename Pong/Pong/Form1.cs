@@ -26,12 +26,12 @@ namespace Pong
             racket2 = new Racket(this.Size.Width - START_X * 2, this.Size.Height / 2 - 50);
 
             upFrame = new Racket(0, 0, this.Size.Width, 5);
-            downFrame = new Racket(0, this.Size.Height, this.Size.Width, 5);
+            downFrame = new Racket(0, this.Size.Height - 55, this.Size.Width, 5);
 
             ball = new Ball(this.Size.Width / 2, this.Size.Height / 2 - 35);
             timer = new Timer();
             timer.Tick += Timer_Tick;
-            timer.Interval = 25;
+            timer.Interval = 1;
             timer.Start();
         }
 
@@ -44,20 +44,24 @@ namespace Pong
         private void Timer_Tick(object sender, EventArgs e)
         {
             ball.Move();
-            if (ball.x <= racket1.x + 0.01)
+            if (ball.x <= racket1.x + racket1.width + 0.01)
             {
                 if (!racket1.checkCollosion(ball))
                     endGame();
+                else
+                    ball.goesLeft = false;
             }
-            else if(ball.x >= racket2.x - 0.01)
+            else if(ball.x >= racket2.x - racket2.width - 0.01)
             {
                 if (!racket2.checkCollosion(ball))
                     endGame();
+                else
+                    ball.goesLeft = true;
             }
             else if (ball.y <= upFrame.y + 0.01)
-                upFrame.hitBall(ball);
+                upFrame.hitBall(ball, true);
             else if (ball.y >= downFrame.y - 0.01)
-                downFrame.hitBall(ball);
+                downFrame.hitBall(ball, true);
             Invalidate();
         }
 

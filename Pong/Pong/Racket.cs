@@ -22,21 +22,29 @@ namespace Pong
             height = _height;
         }
 
-        public void hitBall(Ball ball)
+        public void hitBall(Ball ball, bool horizontal)
         {
-            var relIntersectY = y - ball.y;
-            var normalizedIntersectY = relIntersectY / (height / 2);
-
-            ball.bounceAngle = normalizedIntersectY * MAXANGLE;
+            if (!horizontal)
+            {
+                var relIntersectY = (y + height / 2) - ball.y;
+                var normalizedIntersectY = relIntersectY / (height / 2);
+                ball.bounceAngle = normalizedIntersectY * MAXANGLE;
+            }
+            else
+            {
+                var relIntersectX = (x + width / 2) - ball.x;
+                var normalizedIntersectX = relIntersectX / (width / 2);
+                ball.bounceAngle = normalizedIntersectX * MAXANGLE;
+            }
             ball.vx = Ball.SPEED_CONST * Math.Cos(ball.bounceAngle);
             ball.vy = Ball.SPEED_CONST * Math.Sin(ball.bounceAngle);
         }
 
         public bool checkCollosion(Ball ball)
         {
-            if (ball.y <= y + height / 2 && ball.y >= y - height / 2)
+            if (ball.y >= y && ball.y <= y + height)
             {
-                hitBall(ball);
+                hitBall(ball, false);
                 return true;
             }
             else

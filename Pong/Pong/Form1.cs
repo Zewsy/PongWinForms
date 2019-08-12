@@ -17,8 +17,6 @@ namespace Pong
         Timer timer;
         const int START_X = 20;
         const int MOVEMENT = 10;
-        bool ballIsGoingToLeft = true;
-        bool endOfGame = false;
         public Form1()
         {
             InitializeComponent();
@@ -34,27 +32,37 @@ namespace Pong
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (ballIsGoingToLeft)
+            if (ball.vx < 0) //going to left
             {
                 if (ball.x <= racket1.x + racket1.width * 2)
                 {
-                    if (ball.y <= racket1.y - racket1.height || ball.y >= racket1.y + racket1.height)
+                    //TODO: Refactor
+                    if (ball.y <= racket1.y - racket1.height / 2 || ball.y >= racket1.y + racket1.height / 2)
                     {
-                        //TO DO
-                        endOfGame = true;
                         timer.Stop();
                         MessageBox.Show("END :(");
                     }
                     else
-                        ballIsGoingToLeft = false;
-                }          
-                ball.x -= 5;
+                        racket1.hitBall(ball);
+                }
+                else
+                    ball.Move();
             }
-            else
+            else    //goint to right
             {
                 if (ball.x >= racket2.x - racket2.width * 2)
-                    ballIsGoingToLeft = true;
-                ball.x += 5;
+                {
+                    //TODO: Refactor
+                    if (ball.y <= racket2.y - racket2.height / 2 || ball.y >= racket2.y + racket2.height / 2)
+                    {
+                        timer.Stop();
+                        MessageBox.Show("END :(");
+                    }
+                    else
+                        racket2.hitBall(ball);
+                }
+                else
+                    ball.Move();
             }
             Invalidate();
         }
@@ -62,9 +70,9 @@ namespace Pong
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            e.Graphics.FillRectangle(Brushes.Gray, new Rectangle(racket1.x, racket1.y, racket1.width, racket1.height));
-            e.Graphics.FillRectangle(Brushes.Gray, new Rectangle(racket2.x, racket2.y, racket1.width, racket1.height));
-            e.Graphics.FillEllipse(Brushes.White, new RectangleF(ball.x, ball.y, 15, 15));
+            e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)(racket1.x), (float)racket1.y, racket1.width, racket1.height));
+            e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)racket2.x, (float)racket2.y, racket1.width, racket1.height));
+            e.Graphics.FillEllipse(Brushes.White, new RectangleF((float)ball.x, (float)ball.y, 15, 15));
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

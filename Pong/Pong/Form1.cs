@@ -13,6 +13,7 @@ namespace Pong
     public partial class Form1 : Form
     {
         Racket racket1, racket2;
+        Racket upFrame, downFrame;
         Ball ball;
         Timer timer;
         const int START_X = 20;
@@ -23,6 +24,10 @@ namespace Pong
             //Hard-coded locations for fix form size
             racket1 = new Racket(START_X, this.Size.Height / 2 - 50);
             racket2 = new Racket(this.Size.Width - START_X * 2, this.Size.Height / 2 - 50);
+
+            upFrame = new Racket(0, 0, this.Size.Width, 5);
+            downFrame = new Racket(0, this.Size.Height, this.Size.Width, 5);
+
             ball = new Ball(this.Size.Width / 2, this.Size.Height / 2 - 35);
             timer = new Timer();
             timer.Tick += Timer_Tick;
@@ -30,40 +35,29 @@ namespace Pong
             timer.Start();
         }
 
+        private void endGame()
+        {
+            timer.Stop();
+            MessageBox.Show("Game Over :(");
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (ball.vx < 0) //going to left
+            ball.Move();
+            if (ball.x <= racket1.x + 0.01)
             {
-                if (ball.x <= racket1.x + racket1.width * 2)
-                {
-                    //TODO: Refactor
-                    if (ball.y <= racket1.y - racket1.height / 2 || ball.y >= racket1.y + racket1.height / 2)
-                    {
-                        timer.Stop();
-                        MessageBox.Show("END :(");
-                    }
-                    else
-                        racket1.hitBall(ball);
-                }
-                else
-                    ball.Move();
+                if (!racket1.checkCollosion(ball))
+                    endGame();
             }
-            else    //goint to right
+            else if(ball.x >= racket2.x - 0.01)
             {
-                if (ball.x >= racket2.x - racket2.width * 2)
-                {
-                    //TODO: Refactor
-                    if (ball.y <= racket2.y - racket2.height / 2 || ball.y >= racket2.y + racket2.height / 2)
-                    {
-                        timer.Stop();
-                        MessageBox.Show("END :(");
-                    }
-                    else
-                        racket2.hitBall(ball);
-                }
-                else
-                    ball.Move();
+                if (!racket2.checkCollosion(ball))
+                    endGame();
             }
+            else if (ball.y <= upFrame.y + 0.01)
+                upFrame.hitBall(ball);
+            else if (ball.y >= downFrame.y - 0.01)
+                downFrame.hitBall(ball);
             Invalidate();
         }
 

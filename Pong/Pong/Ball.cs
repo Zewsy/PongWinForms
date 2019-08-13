@@ -12,13 +12,14 @@ namespace Pong
         public double x { get; set; }
         public double y { get; set; }
         public bool goesLeft { get; set; } = true;
+        public bool goesDown { get; set; } = false;
 
         //Velocities
         public double vy { get; set; } = 0;
         public double vx { get; set; } = 5;
         public double diameter { get; set; } = 15;
 
-        public const int SPEED_CONST = 1;
+        public const int SPEED_CONST = 2;
 
         public double bounceAngle { get; set; } = 0;
 
@@ -34,7 +35,10 @@ namespace Pong
                 x -= vx;
             else
                 x += vx;
-            y += vy;
+            if (goesDown)
+                y += vy;
+            else
+                y -= vy;
         }
     }
 }

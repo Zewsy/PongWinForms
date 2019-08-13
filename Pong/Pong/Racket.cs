@@ -29,15 +29,15 @@ namespace Pong
                 var relIntersectY = (y + height / 2) - (ball.y);
                 var normalizedIntersectY = relIntersectY / (height / 2);
                 ball.bounceAngle = normalizedIntersectY * MAXANGLE;
+                ball.vx = Ball.SPEED_CONST * Math.Cos(ball.bounceAngle);
+                ball.vy = Ball.SPEED_CONST * -Math.Sin(ball.bounceAngle);
             }
             else
             {
-                var relIntersectX = (x + width / 2) - (ball.x);
-                var normalizedIntersectX = relIntersectX / (width / 2);
-                ball.bounceAngle = normalizedIntersectX * MAXANGLE;
+                ball.bounceAngle = Math.PI / 4;
+                ball.vy = Ball.SPEED_CONST * Math.Sin(ball.bounceAngle);
+                ball.vx = Ball.SPEED_CONST * Math.Cos(ball.bounceAngle);
             }
-            ball.vx = Ball.SPEED_CONST * Math.Cos(ball.bounceAngle);
-            ball.vy = Ball.SPEED_CONST * Math.Sin(ball.bounceAngle);
         }
 
         public bool checkCollosion(Ball ball)

@@ -61,9 +61,16 @@ namespace Pong
                     ball.goesLeft = true;
             }
             else if (ball.y <= upFrame.y)
+            {
                 upFrame.hitBall(ball, true);
+                ball.goesDown = true;
+            }
+                
             else if (ball.y + ball.diameter >= downFrame.y)
+            {
                 downFrame.hitBall(ball, true);
+                ball.goesDown = false;
+            }
             Invalidate();
         }
 
@@ -74,6 +81,7 @@ namespace Pong
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)racket2.x, (float)racket2.y, racket1.width, racket1.height));
             e.Graphics.FillEllipse(Brushes.White, new RectangleF((float)ball.x, (float)ball.y, (float)ball.diameter, (float)ball.diameter));
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)downFrame.x, (float)downFrame.y, downFrame.width, downFrame.height));
+            e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)upFrame.x, (float)upFrame.y, upFrame.width, upFrame.height));
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

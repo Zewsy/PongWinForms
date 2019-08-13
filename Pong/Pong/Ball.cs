@@ -18,7 +18,7 @@ namespace Pong
         public double vx { get; set; } = 5;
         public double diameter { get; set; } = 15;
 
-        public const int SPEED_CONST = 3;
+        public const int SPEED_CONST = 1;
 
         public double bounceAngle { get; set; } = 0;
 

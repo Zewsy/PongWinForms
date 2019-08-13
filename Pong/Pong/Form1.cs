@@ -26,7 +26,7 @@ namespace Pong
             racket2 = new Racket(this.Size.Width - START_X * 2, this.Size.Height / 2 - 50);
 
             upFrame = new Racket(0, 0, this.Size.Width, 5);
-            downFrame = new Racket(0, this.Size.Height - 55, this.Size.Width, 5);
+            downFrame = new Racket(0, this.Size.Height - 45, this.Size.Width, 5);
 
             ball = new Ball(this.Size.Width / 2, this.Size.Height / 2 - 35);
             timer = new Timer();
@@ -53,16 +53,16 @@ namespace Pong
                 else
                     ball.goesLeft = false;
             }
-            else if(ball.x >= racket2.x - racket2.width - 0.01)
+            else if(ball.x + ball.diameter >= racket2.x - racket2.width - 0.01)
             {
                 if (!racket2.checkCollosion(ball))
                     endGame();
                 else
                     ball.goesLeft = true;
             }
-            else if (ball.y <= upFrame.y + 0.01)
+            else if (ball.y <= upFrame.y)
                 upFrame.hitBall(ball, true);
-            else if (ball.y >= downFrame.y - 0.01)
+            else if (ball.y + ball.diameter >= downFrame.y)
                 downFrame.hitBall(ball, true);
             Invalidate();
         }
@@ -73,6 +73,7 @@ namespace Pong
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)(racket1.x), (float)racket1.y, racket1.width, racket1.height));
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)racket2.x, (float)racket2.y, racket1.width, racket1.height));
             e.Graphics.FillEllipse(Brushes.White, new RectangleF((float)ball.x, (float)ball.y, (float)ball.diameter, (float)ball.diameter));
+            e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)downFrame.x, (float)downFrame.y, downFrame.width, downFrame.height));
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

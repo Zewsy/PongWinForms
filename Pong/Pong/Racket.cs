@@ -26,13 +26,13 @@ namespace Pong
         {
             if (!horizontal)
             {
-                var relIntersectY = (y + height / 2) - ball.y;
+                var relIntersectY = (y + height / 2) - (ball.y);
                 var normalizedIntersectY = relIntersectY / (height / 2);
                 ball.bounceAngle = normalizedIntersectY * MAXANGLE;
             }
             else
             {
-                var relIntersectX = (x + width / 2) - ball.x;
+                var relIntersectX = (x + width / 2) - (ball.x);
                 var normalizedIntersectX = relIntersectX / (width / 2);
                 ball.bounceAngle = normalizedIntersectX * MAXANGLE;
             }
@@ -42,7 +42,7 @@ namespace Pong
 
         public bool checkCollosion(Ball ball)
         {
-            if (ball.y >= y && ball.y <= y + height)
+            if (ball.y + ball.diameter >= y && ball.y <= y + height)
             {
                 hitBall(ball, false);
                 return true;

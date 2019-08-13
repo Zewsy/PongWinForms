@@ -72,7 +72,7 @@ namespace Pong
             base.OnPaint(e);
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)(racket1.x), (float)racket1.y, racket1.width, racket1.height));
             e.Graphics.FillRectangle(Brushes.Gray, new RectangleF((float)racket2.x, (float)racket2.y, racket1.width, racket1.height));
-            e.Graphics.FillEllipse(Brushes.White, new RectangleF((float)ball.x, (float)ball.y, 15, 15));
+            e.Graphics.FillEllipse(Brushes.White, new RectangleF((float)ball.x, (float)ball.y, (float)ball.diameter, (float)ball.diameter));
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

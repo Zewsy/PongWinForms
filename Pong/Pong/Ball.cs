@@ -8,7 +8,7 @@ namespace Pong
 {
     class Ball
     {
-        //Center coordinates
+        //RectangleF upper-left corner coordinates
         public double x { get; set; }
         public double y { get; set; }
         public bool goesLeft { get; set; } = true;
@@ -16,7 +16,7 @@ namespace Pong
         //Velocities
         public double vy { get; set; } = 0;
         public double vx { get; set; } = 5;
-        public double radius { get; set; } = 15;
+        public double diameter { get; set; } = 15;
 
         public const int SPEED_CONST = 3;
 

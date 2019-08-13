@@ -33,6 +33,8 @@ namespace Pong
             timer.Tick += Timer_Tick;
             timer.Interval = 1;
             timer.Start();
+
+            this.DoubleBuffered = true;
         }
 
         private void endGame()
